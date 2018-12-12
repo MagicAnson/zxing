@@ -248,6 +248,9 @@ public class CaptureActivity extends AppCompatActivity implements SurfaceHolder.
             return;
         }
         try {
+            //~~specify camera id
+            cameraManager.setManualCameraId(config.getCameraType());
+
             // 打开Camera硬件设备
             cameraManager.openDriver(surfaceHolder);
             // 创建一个handler来打开预览，并抛出一个运行时异常

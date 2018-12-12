@@ -21,6 +21,7 @@ import android.graphics.Point;
 import android.hardware.Camera;
 import android.util.Log;
 import android.view.Display;
+import android.view.Surface;
 import android.view.WindowManager;
 
 import java.util.regex.Pattern;
@@ -76,9 +77,34 @@ final class CameraConfigurationManager {
         setZoom(parameters);
         //setSharpness(parameters);
         //modify here
-        camera.setDisplayOrientation(90);
+
+        //~~should judge rotation here
+        //camera.setDisplayOrientation(90);
+        WindowManager manager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        int rotation = manager.getDefaultDisplay ().getRotation ();
+        int degrees = 0;
+        switch (rotation)
+        {
+            case Surface.ROTATION_0:
+                degrees = 90;
+                break;
+            case Surface.ROTATION_90:
+                degrees = 0;
+                break;
+            case Surface.ROTATION_180:
+                degrees = 270;
+                break;
+            case Surface.ROTATION_270:
+                degrees = 180;
+                break;
+        }
+        camera.setDisplayOrientation(degrees);
+        //~~end
+
         camera.setParameters(parameters);
     }
+
+    public void setCameraResolution(Point p) {cameraResolution = p;}
 
     Point getCameraResolution() {
         return cameraResolution;
@@ -109,7 +135,6 @@ final class CameraConfigurationManager {
             cameraResolution = new Point(
                     (screenResolution.x >> 3) << 3,
                     (screenResolution.y >> 3) << 3);
-
         }
 
         return cameraResolution;

@@ -45,19 +45,25 @@ public static Camera open(int cameraId) {
 
     boolean explicitRequest = cameraId >= 0;
 
-    if (!explicitRequest) {
+    //~~change the id to type
+    if (explicitRequest) {
       // Select a camera if no explicit camera requested
       int index = 0;
       while (index < numCameras) {
         Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
         Camera.getCameraInfo(index, cameraInfo);
-        if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
+        //if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
+        if (cameraInfo.facing == cameraId) {
           break;
         }
         index++;
       }
       
       cameraId = index;
+    }
+    else
+    {
+        cameraId = 0;
     }
 
     Camera camera;

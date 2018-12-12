@@ -107,6 +107,13 @@ public final class CameraManager {
         if (!initialized) {
             initialized = true;
             configManager.initFromCameraParameters(theCamera);
+
+            //~~check whether to use low resolution
+            if (config.isLowResolution())
+            {
+                configManager.setCameraResolution(new Point(640, 480));
+            }
+
             if (requestedFramingRectWidth > 0 && requestedFramingRectHeight > 0) {
                 setManualFramingRect(requestedFramingRectWidth,
                         requestedFramingRectHeight);

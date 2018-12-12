@@ -31,6 +31,32 @@ public class ZxingConfig implements Serializable {
     /*是否全屏扫描*/
     private boolean isFullScreenScan = true;
 
+    //~~指定摄像头类型，-1 the first, 0 the back, 1 the front
+    private int cameraType = -1;
+
+    public int getCameraType ()
+    {
+        return cameraType;
+    }
+
+    public void setCameraType (int cameraType)
+    {
+        this.cameraType = cameraType;
+    }
+
+    //~~是否使用低分辨率模式(640x480)
+    private boolean isLowResolution = false;
+
+    public boolean isLowResolution ()
+    {
+        return isLowResolution;
+    }
+
+    public void setLowResolution (boolean lowResolution)
+    {
+        isLowResolution = lowResolution;
+    }
+
     /*四个角的颜色*/
     @ColorRes
     private int reactColor = R.color.react;
